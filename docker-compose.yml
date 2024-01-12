@@ -1,5 +1,6 @@
 services:
   db:
+    hostname: db
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -8,6 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    hostname: web
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -20,3 +22,12 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
+  rabbit:
+      hostname: rabbit
+      image: rabbitmq
+      environment:
+          - RABBITMQ_DEFAULT_USER=admin
+          - RABBITMQ_DEFAULT_PASS=mypass
+      ports:
+          - "5672:5672"
+          - "15672:15672"
