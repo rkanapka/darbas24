@@ -1,2 +1,5 @@
 Django==5.0.1
+celery==5.3.6
 psycopg2==2.9.9
+requests==2.31.0
+beautifulsoup4==4.12.2
