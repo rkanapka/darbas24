@@ -130,5 +130,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
 
-CELERY_BROKER_URL = 'amqp://admin:mypass@rabbit:5672'
+CELERY_BROKER_URL = f'amqp://{os.environ.get('RMQ_USER')}:{os.environ.get('RMQ_PASS')}@rabbit:5672'
 CELERY_RESULT_BACKEND = 'rpc'
