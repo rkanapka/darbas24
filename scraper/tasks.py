@@ -8,16 +8,10 @@ from .models import JobOffers
 @shared_task
 def scrape_cvbankas():
     try:
-        print("Starting the scraping tool")
         job_offers = []
-        # execute my request, parse the data using XML
-        # parser in BS4
         r = requests.get("https://www.cvbankas.lt/?page=1")
         soup = BeautifulSoup(r.content, features="xml")
-        # select only the "items" I want from the data
         articles = soup.findAll("article")
-
-        # for each "item" I want, parse it into a list
         for a in articles:
             print(a)
             title = a.find("h3")
@@ -52,19 +46,15 @@ def scrape_cvbankas():
                 "image_height": image_height,
                 "source_link": "cvbankas",
             }
-            print(
-                title, company, salary, salary_calculation, location, job_link, sep="\n"
-            )
             job_offers.append(job_offer)
         return save_cvbankas_offers(job_offers)
-    except Exception as e:
-        print("The scraping job failed. See exception:")
-        print(e)
+    except Exception as exc:
+        print("The scraping job failed. See exception:", exc, sep="\n")
 
 
 @shared_task(serializer="json")
 def save_cvbankas_offers(job_offers):
-    print("starting")
+    print("Starting saving")
     for offer in job_offers:
         try:
             JobOffers.objects.create(
@@ -80,8 +70,7 @@ def save_cvbankas_offers(job_offers):
                 image_height=offer["image_height"],
                 source_link=offer["source_link"],
             )
-        except Exception as e:
-            print("Error occuread:")
-            print(e)
+        except Exception as exc:
+            print("Error occuread:", exc, sep="\n")
             break
-    print("finished")
+    print("Finished")
