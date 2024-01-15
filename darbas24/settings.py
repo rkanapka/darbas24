@@ -137,7 +137,7 @@ CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
 
 CELERY_BEAT_SCHEDULE = {
     "scheduled_tasks": {  # name of the task
-        "task": "scraper.modules.cvbankas.scrape_cvbankas",  # our task function
+        "task": "scraper.tasks.scrape_cvbankas",  # our task function
         "schedule": 20.0,  # each 20 secs
     }
 }
