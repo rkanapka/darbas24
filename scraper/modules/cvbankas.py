@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from celery import shared_task
 
-from .models import JobOffers
+from ..models import JobOffers
 
 
 @shared_task
-def scrape_job_offers():
+def scrape_cvbankas():
     try:
         print("Starting the scraping tool")
         job_offers = []
@@ -52,14 +52,14 @@ def scrape_job_offers():
                 title, company, salary, salary_calculation, location, job_link, sep="\n"
             )
             job_offers.append(job_offer)
-        return save_job_offers(job_offers)
+        return save_cvbankas_offers(job_offers)
     except Exception as e:
         print("The scraping job failed. See exception:")
         print(e)
 
 
 @shared_task(serializer="json")
-def save_job_offers(job_offers):
+def save_cvbankas_offers(job_offers):
     print("starting")
     for offer in job_offers:
         try:
