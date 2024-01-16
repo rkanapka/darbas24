@@ -37,8 +37,14 @@ def scrape_cvbankas():
                 "" if offer_upload_date is None else offer_upload_date.text
             )
 
+            offer_request = requests.get(job_link)
+            offer_soup = BeautifulSoup(offer_request.content, features="xml")
+            li_elements = offer_soup.find_all("li", {"class": "nav_additional_li"})
+            category = li_elements[-1].text
+
             job_offer = {
                 "title": title,
+                "category": category,
                 "company": company,
                 "salary": salary,
                 "salary_period": salary_period,
@@ -64,6 +70,7 @@ def save_cvbankas_offers(job_offers):
         try:
             JobOffers.objects.create(
                 title=offer["title"],
+                category=offer["category"],
                 company=offer["company"],
                 salary=offer["salary"],
                 salary_period=offer["salary_period"],
