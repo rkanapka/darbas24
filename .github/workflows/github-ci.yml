@@ -11,7 +11,7 @@ on:
       - development
 
 jobs:
-  health-check-job:
+  build-and-test-job:
     runs-on: ubuntu-latest
     services:
       postgres:
