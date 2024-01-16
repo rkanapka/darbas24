@@ -12,4 +12,5 @@ class JobOffers(models.Model):
     image_link = models.CharField(max_length=2083, default="")
     image_width = models.SmallIntegerField()
     image_height = models.SmallIntegerField()
+    offer_upload_date = models.CharField(max_length=50)
     source_link = models.CharField(max_length=30, default="", blank=True, null=True)

@@ -32,6 +32,10 @@ def scrape_cvbankas():
             image_link = a.find("img").get("src")
             image_width = a.find("img").get("width")
             image_height = a.find("img").get("height")
+            offer_upload_date = a.find("span", {"class": "txt_list_2"})
+            offer_upload_date = (
+                "" if offer_upload_date is None else offer_upload_date.text
+            )
 
             job_offer = {
                 "title": title,
@@ -44,6 +48,7 @@ def scrape_cvbankas():
                 "image_link": image_link,
                 "image_width": image_width,
                 "image_height": image_height,
+                "offer_upload_date": offer_upload_date,
                 "source_link": "cvbankas",
             }
             job_offers.append(job_offer)
@@ -68,6 +73,7 @@ def save_cvbankas_offers(job_offers):
                 image_link=offer["image_link"],
                 image_width=offer["image_width"],
                 image_height=offer["image_height"],
+                offer_upload_date=offer["offer_upload_date"],
                 source_link=offer["source_link"],
             )
         except Exception as exc:
