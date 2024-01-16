@@ -1,0 +1,50 @@
+name: Django CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  health-check-job:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github-actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code # checking our the code at current commit that triggers the workflow
+        uses: actions/checkout@v4
+      - name: Cache dependency # caching dependency will make our build faster.
+        uses: actions/cache@v3 # for more info checkout pip section documentation at https://github.com/actions/cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Setup python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Python version
+        run: python --version
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.0
+      - name: Run Migrations
+        run: python manage.py migrate
+      - name: Run Test
+        run: python manage.py test
