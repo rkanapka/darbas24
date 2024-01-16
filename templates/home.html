@@ -112,13 +112,16 @@
                                                 </div>
                                              </td>
                                              <td>
-                                                <div class="widget-26-job-info">
-                                                   <!-- <p class="type m-0">Full-Time</p> -->
-                                                   <p class="text-muted m-0"><span class="location">{{ job_offer.location }}</span></p>
+
+                                                <div class="widget-26-job-salary">
+                                                    <p class="type m-0">{{ job_offer.salary }} {{ job_offer.salary_period }}</p>
+                                                    <p class="text-muted m-0"><span class="location">{{ job_offer.salary_calculation }}</span></p>
                                                 </div>
                                              </td>
                                              <td>
-                                                <div class="widget-26-job-salary">{{ job_offer.salary }} {{ job_offer.salary_period }} {{ job_offer.salary_calculation }}</div>
+                                                <div class="widget-26-job-info">
+                                                    <p class="text-muted m-0"><span class="location">{{ job_offer.location }}</span></p>
+                                                 </div>
                                              </td>
                                              <td>
                                                 <div class="widget-26-job-category bg-soft-base">
