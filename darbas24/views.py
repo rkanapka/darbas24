@@ -4,6 +4,7 @@ from scraper.models import JobOffers
 
 
 class HomePageView(generic.ListView):
+    paginate_by = 20
     template_name = "home.html"
 
     context_object_name = (
