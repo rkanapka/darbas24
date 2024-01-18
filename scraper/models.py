@@ -50,3 +50,23 @@ class JobOffers(models.Model):
             "Žiniasklaida/komunikacija": "bg-soft-soft-aqua",
         }
         return category_with_color[self.category]
+
+
+class City(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "cities"
+
+    def __str__(self):
+        return self.name
+
+
+class JobCategory(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "catgories"
+
+    def __str__(self):
+        return self.name
