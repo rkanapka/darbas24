@@ -1,0 +1,205 @@
+[
+    {
+      "model": "job.jobcategory",
+      "pk": 1,
+      "fields": {
+        "name": "Administravimas/darbų sauga"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 2,
+      "fields": {
+        "name": "Apsauga"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 3,
+      "fields": {
+        "name": "Dizainas/architektūra"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 4,
+      "fields": {
+        "name": "Draudimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 5,
+      "fields": {
+        "name": "Eksportas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 6,
+      "fields": {
+        "name": "Energetika/elektronika"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 7,
+      "fields": {
+        "name": "Finansai/apskaita/bankininkystė"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 8,
+      "fields": {
+        "name": "Gamyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 9,
+      "fields": {
+        "name": "Informacinės technologijos"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 10,
+      "fields": {
+        "name": "Inžinerija/mechanika"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 11,
+      "fields": {
+        "name": "Klientų aptarnavimas/paslaugos"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 12,
+      "fields": {
+        "name": "Maisto gamyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 13,
+      "fields": {
+        "name": "Marketingas/reklama"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 14,
+      "fields": {
+        "name": "Medicina/farmacija"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 15,
+      "fields": {
+        "name": "Nekilnojamasis turtas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 16,
+      "fields": {
+        "name": "Pardavimų vadyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 17,
+      "fields": {
+        "name": "Personalo valdymas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 18,
+      "fields": {
+        "name": "Pirkimai/tiekimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 19,
+      "fields": {
+        "name": "Prekyba - konsultavimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 20,
+      "fields": {
+        "name": "Sandėliavimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 21,
+      "fields": {
+        "name": "Statyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 22,
+      "fields": {
+        "name": "Švietimas/mokymai/kultūra"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 23,
+      "fields": {
+        "name": "Teisė"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 24,
+      "fields": {
+        "name": "Transporto vairavimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 25,
+      "fields": {
+        "name": "Transporto/logistikos vadyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 26,
+      "fields": {
+        "name": "Vadovavimas/kokybės vadyba"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 27,
+      "fields": {
+        "name": "Valstybinis/viešasis administravimas"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 28,
+      "fields": {
+        "name": "Žemės ūkis"
+      }
+    },
+    {
+      "model": "job.jobcategory",
+      "pk": 29,
+      "fields": {
+        "name": "Žiniasklaida/komunikacija"
+      }
+    }
+  ]
