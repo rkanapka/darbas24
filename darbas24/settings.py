@@ -149,8 +149,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
 
 CELERY_BEAT_SCHEDULE = {
-    "scheduled_tasks": {  # name of the task
-        "task": "scraper.sites.cvbankas.scrape_cvbankas",  # our task function
-        "schedule": 200.0,  # each 200 secs
+    "scrape_job_offers": {
+        "task": "job.tasks.scrape_and_save_job_offers",
+        "schedule": 60.0,
     }
 }
