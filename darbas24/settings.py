@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "job.apps.JobConfig",
     "scraper.apps.ScraperConfig",
 ]
 
@@ -150,6 +151,6 @@ CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
 CELERY_BEAT_SCHEDULE = {
     "scheduled_tasks": {  # name of the task
         "task": "scraper.tasks.scrape_cvbankas",  # our task function
-        "schedule": 20.0,  # each 20 secs
+        "schedule": 200.0,  # each 200 secs
     }
 }

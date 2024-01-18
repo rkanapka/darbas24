@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from celery import shared_task
 
-from .models import JobOffers
+from job.models import JobOffer
 
 
 @shared_task
@@ -68,7 +68,7 @@ def save_cvbankas_offers(job_offers):
     print("Starting saving")
     for offer in job_offers:
         try:
-            JobOffers.objects.create(
+            JobOffer.objects.create(
                 title=offer["title"],
                 category=offer["category"],
                 company=offer["company"],

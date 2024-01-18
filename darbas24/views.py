@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.views import generic
 
-from scraper.models import City, JobCategory, JobOffers
+from job.models import JobCategory, JobCity, JobOffer
 
 
 class HomePageView(generic.ListView):
@@ -20,13 +20,13 @@ class HomePageView(generic.ListView):
         )
 
         if query_title or query_location or query_category:
-            return JobOffers.objects.filter(job_search_filter)
-        return JobOffers.objects.all()
+            return JobOffer.objects.filter(job_search_filter)
+        return JobOffer.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        cities = City.objects.all()
+        cities = JobCity.objects.all()
         job_categories = JobCategory.objects.all()
 
         context["cities_list"] = cities
@@ -46,7 +46,7 @@ class HomePageView(generic.ListView):
         return job_search_filter
 
     def transform_city_to_locative_case(self, location_query):
-        city_mappings = {
+        return {
             "Vilnius": "Vilniuje",
             "Kaunas": "Kaune",
             "Klaipėda": "Klaipėdoje",
@@ -111,5 +111,4 @@ class HomePageView(generic.ListView):
             "Zarasai": "Zarase",
             "Darbas namuose": "Namie",
             "Užsienis": "Užsienyje",
-        }
-        return city_mappings.get(location_query)
+        }.get(location_query)
