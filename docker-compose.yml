@@ -2,6 +2,8 @@ services:
   db:
     hostname: db
     image: postgres
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
@@ -21,7 +23,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   rabbit:
       hostname: rabbit
       image: rabbitmq
