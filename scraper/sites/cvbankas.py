@@ -4,8 +4,10 @@ from aiolimiter import AsyncLimiter
 from bs4 import BeautifulSoup
 from httpx import AsyncClient
 
+from .scraper import IScraper
 
-class CVBankas:
+
+class CVBankas(IScraper):
     def __init__(self):
         self.url = "https://www.cvbankas.lt"
         self.source = "cvbankas"
