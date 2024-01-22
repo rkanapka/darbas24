@@ -151,6 +151,6 @@ CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
 CELERY_BEAT_SCHEDULE = {
     "scrape_job_offers": {
         "task": "job.tasks.scrape_and_save_job_offers",
-        "schedule": 60.0,
+        "schedule": 200.0,
     }
 }
