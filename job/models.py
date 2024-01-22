@@ -9,7 +9,7 @@ class JobOffer(models.Model):
     salary_period = models.CharField(max_length=25)
     salary_calculation = models.CharField(max_length=25)
     location = models.CharField(max_length=50)
-    job_link = models.CharField(max_length=2083, default="", unique=True)
+    job_link = models.CharField(max_length=2083, default="")
     image_link = models.CharField(max_length=2083, default="")
     image_width = models.SmallIntegerField()
     image_height = models.SmallIntegerField()
