@@ -1,27 +1,50 @@
-import requests
+import asyncio
+
+from aiolimiter import AsyncLimiter
 from bs4 import BeautifulSoup
+from httpx import AsyncClient
 
 
 class CVBankas:
     def __init__(self):
         self.url = "https://www.cvbankas.lt"
         self.source = "cvbankas"
+        self.job_offers = []
 
-    def scrape(self):
+        asyncio.run(self.fetch())
+
+    async def fetch(self):
         try:
-            last_page_number = self.get_last_page_number()
-            return self.scrape_job_offers(last_page_number)
+            tasks = []
+            throttler = AsyncLimiter(max_rate=10, time_period=6)
+            async with AsyncClient() as session:
+                last_page_number = await self.get_last_page_number(session=session)
+                tasks = [
+                    asyncio.create_task(
+                        self.scrape_page(
+                            page_number, session=session, throttler=throttler
+                        ),
+                        name=f"Page {page_number}",
+                    )
+                    for page_number in range(1, last_page_number + 1)
+                ]
+                done, pending = await asyncio.wait(
+                    tasks, return_when=asyncio.ALL_COMPLETED
+                )
+
+                for task in done:
+                    print(f"Done: {task.get_name()}")
+                for task in pending:
+                    task.cancel()
         except Exception as exc:
             print("The scraping job failed. See exception:", exc, sep="\n")
 
-    def scrape_job_offers(self, last_page_number):
-        job_offers = []
-        for page_number in range(1, last_page_number + 1):
-            r = requests.get(f"{self.url}/?page={page_number}")
+    async def scrape_page(self, page_number, session, throttler):
+        async with throttler:
+            r = await session.get(f"{self.url}?page={page_number}")
             soup = BeautifulSoup(r.content, features="xml")
             articles = soup.findAll("article")
             for a in articles:
-                print(a)
                 title = a.find("h3")
                 title = "" if title is None else title.text
                 company = a.find("span", {"class": "dib mt5 mr5"})
@@ -45,37 +68,35 @@ class CVBankas:
                     "" if offer_upload_date is None else offer_upload_date.text
                 )
 
-                category = self.get_job_offer_category(job_link)
+                # category = await self.get_job_offer_category(job_link, session=session)
 
-                job_offer = {
-                    "title": title,
-                    "category": category,
-                    "company": company,
-                    "salary": salary,
-                    "salary_period": salary_period,
-                    "salary_calculation": salary_calculation,
-                    "location": location,
-                    "job_link": job_link,
-                    "image_link": image_link,
-                    "image_width": image_width,
-                    "image_height": image_height,
-                    "offer_upload_date": offer_upload_date,
-                    "source_link": self.source,
-                }
-                job_offers.append(job_offer)
-        return job_offers
+                self.job_offers.append(
+                    {
+                        "title": title,
+                        "category": "test",
+                        "company": company,
+                        "salary": salary,
+                        "salary_period": salary_period,
+                        "salary_calculation": salary_calculation,
+                        "location": location,
+                        "job_link": job_link,
+                        "image_link": image_link,
+                        "image_width": image_width,
+                        "image_height": image_height,
+                        "offer_upload_date": offer_upload_date,
+                        "source_link": self.source,
+                    }
+                )
 
-    def get_last_page_number(self):
-        home_request = requests.get(f"{self.url}")
+    async def get_last_page_number(self, session):
+        home_request = await session.get(f"{self.url}")
         home_soup = BeautifulSoup(home_request.content, features="xml")
         ul_pages_element = home_soup.find("ul", {"class": "pages_ul_inner"})
         il_pages_elements = ul_pages_element.find_all("li")
-        last_page = int(il_pages_elements[-1].text)
-        return last_page
+        return int(il_pages_elements[-1].text)
 
-    def get_job_offer_category(self, job_link):
-        offer_request = requests.get(job_link)
+    async def get_job_offer_category(self, job_link, session):
+        offer_request = await session.get(job_link)
         offer_soup = BeautifulSoup(offer_request.content, features="xml")
         li_elements = offer_soup.find_all("li", {"class": "nav_additional_li"})
-        category = li_elements[-1].text
-        return category
+        return li_elements[-1].text
