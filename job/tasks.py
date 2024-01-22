@@ -7,13 +7,19 @@ from .models import JobOffer
 
 @shared_task(serializer="json")
 def scrape_and_save_job_offers():
-    cvbankas_job_offers = CVBankas().scrape()
-    save_job_offers(cvbankas_job_offers)
+    cvbankas = CVBankas()
+    save_job_offers(cvbankas.job_offers)
 
 
-def save_job_offers(cvbankas_job_offers):
-    for offer in cvbankas_job_offers:
+def save_job_offers(job_offers):
+    print("Saving")
+    for offer in job_offers:
         try:
+            title_max_length = JobOffer._meta.get_field("title").max_length
+            if len(offer["title"]) > title_max_length:
+                print(f"Title exceeds {title_max_length} characters: {offer['title']}")
+                continue
+
             JobOffer.objects.create(
                 title=offer["title"],
                 category=offer["category"],
