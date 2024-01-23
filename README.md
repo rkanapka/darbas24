@@ -1,22 +1,6 @@
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -47,7 +31,6 @@ Built using the Python programming language and the Django web framework, this p
 </div>
 
 
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -70,7 +53,6 @@ Built using the Python programming language and the Django web framework, this p
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
-
 
 
 <!-- ABOUT THE PROJECT -->
@@ -200,11 +182,11 @@ Rimvydas Kanapka - [kanapka.rimvydas@gmail.com](MAILTO:kanapka.rimvydas@gmail.co
 [issues-url]: https://github.com/devKanapka/darbas24/issues
 <!-- Social media -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-007AB5.svg?style=for-the-badge&logo=linkedin
-[linkedin-url]: [https://linkedin.com/in/othneildrew](https://www.linkedin.com/in/rimvydas-kanapka/)
+[linkedin-url]: https://www.linkedin.com/in/rimvydas-kanapka
 [facebook-shield]: https://img.shields.io/badge/-facebook-0866FF.svg?style=for-the-badge&logo=facebook
-[facebook-url]: [https://www.facebook.com/kanapka.rimvydas/](https://www.facebook.com/kanapka.rimvydas/)
+[facebook-url]: https://www.facebook.com/kanapka.rimvydas
 [instagram-shield]: https://img.shields.io/badge/-instagram-C5346E.svg?style=for-the-badge&logo=instagram&logoColor=white
-[instagram-url]: [https://www.instagram.com/rimvydaskanapka/](https://www.instagram.com/rimvydaskanapka/)
+[instagram-url]: https://www.instagram.com/rimvydaskanapka
 <!-- Tech stack -->
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
