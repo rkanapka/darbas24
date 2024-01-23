@@ -51,31 +51,6 @@ class JobOffer(models.Model):
         }.get(self.category)
 
 
-def save_cvbankas_offers(self, job_offers):
-    print("Starting saving")
-    for offer in job_offers:
-        try:
-            self.objects.create(
-                title=offer["title"],
-                category=offer["category"],
-                company=offer["company"],
-                salary=offer["salary"],
-                salary_period=offer["salary_period"],
-                salary_calculation=offer["salary_calculation"],
-                location=offer["location"],
-                job_link=offer["job_link"],
-                image_link=offer["image_link"],
-                image_width=offer["image_width"],
-                image_height=offer["image_height"],
-                offer_upload_date=offer["offer_upload_date"],
-                source_link=offer["source_link"],
-            )
-        except Exception as exc:
-            print("Error occuread:", exc, sep="\n")
-            break
-    print("Finished")
-
-
 class JobCity(models.Model):
     name = models.CharField(max_length=255)
 
