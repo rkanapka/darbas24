@@ -2,9 +2,8 @@ import time
 
 from celery import shared_task
 
-from scraper.sites.cvbankas import CVBankas
-
 from .models import JobOffer
+from .scrapers.cvbankas import CVBankas
 
 
 @shared_task(serializer="json")
