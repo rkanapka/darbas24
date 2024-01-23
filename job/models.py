@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class JobOffers(models.Model):
+class JobOffer(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
@@ -9,7 +9,7 @@ class JobOffers(models.Model):
     salary_period = models.CharField(max_length=25)
     salary_calculation = models.CharField(max_length=25)
     location = models.CharField(max_length=50)
-    job_link = models.CharField(max_length=2083, default="", unique=True)
+    job_link = models.CharField(max_length=2083, default="")
     image_link = models.CharField(max_length=2083, default="")
     image_width = models.SmallIntegerField()
     image_height = models.SmallIntegerField()
@@ -18,7 +18,7 @@ class JobOffers(models.Model):
 
     @property
     def category_color(self):
-        category_with_color = {
+        return {
             "Administravimas/darbų sauga": "bg-soft-light-red",
             "Apsauga": "bg-soft-light-orange",
             "Dizainas/architektūra": "bg-soft-light-yellow",
@@ -48,5 +48,24 @@ class JobOffers(models.Model):
             "Valstybinis/viešasis administravimas": "bg-soft-soft-lilac",
             "Žemės ūkis": "bg-soft-soft-sky-blue",
             "Žiniasklaida/komunikacija": "bg-soft-soft-aqua",
-        }
-        return category_with_color[self.category]
+        }.get(self.category)
+
+
+class JobCity(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "cities"
+
+    def __str__(self):
+        return self.name
+
+
+class JobCategory(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "catgories"
+
+    def __str__(self):
+        return self.name

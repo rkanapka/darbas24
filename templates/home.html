@@ -5,11 +5,15 @@
       <meta charset="utf-8">
       <title>Darbas24</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/png" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="{% static '/css/main-style.css' %}" rel="stylesheet">
    </head>
    <body>
       <div class="container">
+         <div class="text-center">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" />
+         </div>
          <div class="row">
             <div class="col-lg-12 card-margin">
                <div class="card search-form">
@@ -19,18 +23,27 @@
                            <div class="col-12">
                               <div class="row no-gutters">
                                  <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                       <option>Location</option>
-                                       <option>London</option>
-                                       <option>Boston</option>
-                                       <option>Mumbai</option>
-                                       <option>New York</option>
-                                       <option>Toronto</option>
-                                       <option>Paris</option>
+                                    <select class="form-control" id="FormControlSelectCity" name="location">
+                                       <option selected="selected" disabled="true" style="color:gray">Location</option>
+                                       {% for city in cities_list %}
+                                          <option>
+                                          {{ city.name }}
+                                          </option>
+                                       {% endfor %}
                                     </select>
                                  </div>
-                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                    <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                 <div class="col-lg-4 col-md-3 col-sm-12 p-0">
+                                    <select class="form-control" id="FormControlSelectCategory" name="category">
+                                       <option selected="selected" disabled="true" style="color:gray">Category</option>
+                                       {% for category in job_categories_list %}
+                                          <option>
+                                          {{ category.name }}
+                                          </option>
+                                       {% endfor %}
+                                    </select>
+                                 </div>
+                                 <div class="col-lg-4 col-md-6 col-sm-12 p-0">
+                                    <input type="text" placeholder="Search..." class="form-control" id="search" name="title">
                                  </div>
                                  <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                     <button type="submit" class="btn btn-base">
@@ -58,7 +71,7 @@
                               <div class="result-header">
                                  <div class="row">
                                     <div class="col-lg-6">
-                                       <div class="records">Showing: <b>1-20</b> of <b>{{ page_obj.paginator.count }}</b> result</div>
+                                       <div class="records">Total: <b>{{ page_obj.paginator.count }}</b> jobs</div>
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="result-actions">
@@ -102,13 +115,15 @@
                                           <tr>
                                              <td>
                                                 <div class="widget-26-job-emp-img">
-                                                   <img src="{{ job_offer.image_link }}" alt="Company" />
+                                                   <a href="{{ job_offer.job_link }}">
+                                                      <img src="{{ job_offer.image_link }}" alt="Company" />
+                                                   </a>
                                                 </div>
                                              </td>
                                              <td>
                                                 <div class="widget-26-job-title">
-                                                   <a href="{{ job_offer.link }}">{{ job_offer.title }}</a>
-                                                   <p class="m-0"><a href="{{ job_offer.link }}" class="employer-name">{{ job_offer.company }}</a> <span class="text-muted time">{{ job_offer.offer_upload_date }}</span></p>
+                                                   <a href="{{ job_offer.job_link }}">{{ job_offer.title }}</a>
+                                                   <p class="m-0"><a class="employer-name">{{ job_offer.company }}</a> <span class="text-muted time">{{ job_offer.offer_upload_date }}</span></p>
                                                 </div>
                                              </td>
                                              <td>

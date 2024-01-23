@@ -1,0 +1,450 @@
+[
+    {
+      "model": "job.jobcity",
+      "pk": 1,
+      "fields": {
+        "name": "Vilnius"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 2,
+      "fields": {
+        "name": "Kaunas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 3,
+      "fields": {
+        "name": "Klaipėda"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 4,
+      "fields": {
+        "name": "Šiauliai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 5,
+      "fields": {
+        "name": "Panevėžys"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 6,
+      "fields": {
+        "name": "Akmenė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 7,
+      "fields": {
+        "name": "Alytus"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 8,
+      "fields": {
+        "name": "Anykščiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 9,
+      "fields": {
+        "name": "Birštonas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 10,
+      "fields": {
+        "name": "Biržai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 11,
+      "fields": {
+        "name": "Druskininkai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 12,
+      "fields": {
+        "name": "Elektrėnai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 13,
+      "fields": {
+        "name": "Gargždai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 14,
+      "fields": {
+        "name": "Ignalina"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 15,
+      "fields": {
+        "name": "Jonava"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 16,
+      "fields": {
+        "name": "Joniškis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 17,
+      "fields": {
+        "name": "Jurbarkas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 18,
+      "fields": {
+        "name": "Kaišiadorys"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 19,
+      "fields": {
+        "name": "Kalvarija"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 20,
+      "fields": {
+        "name": "Kazlų Rūda"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 21,
+      "fields": {
+        "name": "Kėdainiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 22,
+      "fields": {
+        "name": "Kelmė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 23,
+      "fields": {
+        "name": "Krekenava"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 24,
+      "fields": {
+        "name": "Kretinga"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 25,
+      "fields": {
+        "name": "Kupiškis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 26,
+      "fields": {
+        "name": "Kuršėnai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 27,
+      "fields": {
+        "name": "Lazdijai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 28,
+      "fields": {
+        "name": "Lentvaris"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 29,
+      "fields": {
+        "name": "Marijampolė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 30,
+      "fields": {
+        "name": "Mažeikiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 31,
+      "fields": {
+        "name": "Molėtai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 32,
+      "fields": {
+        "name": "Naujoji Akmenė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 33,
+      "fields": {
+        "name": "Nemenčinė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 34,
+      "fields": {
+        "name": "Neringa"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 35,
+      "fields": {
+        "name": "Pabradė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 36,
+      "fields": {
+        "name": "Pagėgiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 37,
+      "fields": {
+        "name": "Pakruojis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 38,
+      "fields": {
+        "name": "Palanga"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 39,
+      "fields": {
+        "name": "Pasvalys"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 40,
+      "fields": {
+        "name": "Plungė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 41,
+      "fields": {
+        "name": "Prienai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 42,
+      "fields": {
+        "name": "Radviliškis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 43,
+      "fields": {
+        "name": "Raseiniai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 44,
+      "fields": {
+        "name": "Rietavas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 45,
+      "fields": {
+        "name": "Rokiškis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 46,
+      "fields": {
+        "name": "Šakiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 47,
+      "fields": {
+        "name": "Šalčininkai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 48,
+      "fields": {
+        "name": "Šilalė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 49,
+      "fields": {
+        "name": "Šilutė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 50,
+      "fields": {
+        "name": "Širvintos"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 51,
+      "fields": {
+        "name": "Skuodas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 52,
+      "fields": {
+        "name": "Švenčionys"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 53,
+      "fields": {
+        "name": "Tauragė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 54,
+      "fields": {
+        "name": "Telšiai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 55,
+      "fields": {
+        "name": "Trakai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 56,
+      "fields": {
+        "name": "Ukmergė"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 57,
+      "fields": {
+        "name": "Utena"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 58,
+      "fields": {
+        "name": "Varėna"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 59,
+      "fields": {
+        "name": "Vievis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 60,
+      "fields": {
+        "name": "Vilkaviškis"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 61,
+      "fields": {
+        "name": "Visaginas"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 62,
+      "fields": {
+        "name": "Zarasai"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 63,
+      "fields": {
+        "name": "Darbas namuose"
+      }
+    },
+    {
+      "model": "job.jobcity",
+      "pk": 64,
+      "fields": {
+        "name": "Užsienis"
+      }
+    }
+  ]

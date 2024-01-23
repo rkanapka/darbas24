@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "scraper.apps.ScraperConfig",
+    "job.apps.JobConfig",
 ]
 
 MIDDLEWARE = [
@@ -148,8 +148,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
 
 CELERY_BEAT_SCHEDULE = {
-    "scheduled_tasks": {  # name of the task
-        "task": "scraper.tasks.scrape_cvbankas",  # our task function
-        "schedule": 20.0,  # each 20 secs
+    "scrape_job_offers": {
+        "task": "job.tasks.scrape_and_save_job_offers",
+        "schedule": 200.0,
     }
 }
