@@ -1,3 +1,5 @@
+import time
+
 from celery import shared_task
 
 from scraper.sites.cvbankas import CVBankas
@@ -13,29 +15,29 @@ def scrape_and_save_job_offers():
 
 def save_job_offers(job_offers):
     print("Saving")
-    for offer in job_offers:
-        try:
-            title_max_length = JobOffer._meta.get_field("title").max_length
-            if len(offer["title"]) > title_max_length:
-                print(f"Title exceeds {title_max_length} characters: {offer['title']}")
-                continue
+    start_time = time.time()
+    try:
+        job_offer_objects = [create_job_offer_object(offer) for offer in job_offers]
+        JobOffer.objects.bulk_create(job_offer_objects)
+    except Exception as exc:
+        print("Error occuread:", exc, sep="\n")
+    print("Finished in --- %s seconds ---" % (time.time() - start_time))
 
-            JobOffer.objects.create(
-                title=offer["title"],
-                category=offer["category"],
-                company=offer["company"],
-                salary=offer["salary"],
-                salary_period=offer["salary_period"],
-                salary_calculation=offer["salary_calculation"],
-                location=offer["location"],
-                job_link=offer["job_link"],
-                image_link=offer["image_link"],
-                image_width=offer["image_width"],
-                image_height=offer["image_height"],
-                offer_upload_date=offer["offer_upload_date"],
-                source_link=offer["source_link"],
-            )
-        except Exception as exc:
-            print("Error occuread:", exc, sep="\n")
-            break
-    print("Finished")
+
+def create_job_offer_object(offer):
+    title_max_length = JobOffer._meta.get_field("title").max_length
+    return JobOffer(
+        title=offer["title"][:title_max_length],
+        category=offer["category"],
+        company=offer["company"],
+        salary=offer["salary"],
+        salary_period=offer["salary_period"],
+        salary_calculation=offer["salary_calculation"],
+        location=offer["location"],
+        job_link=offer["job_link"],
+        image_link=offer["image_link"],
+        image_width=offer["image_width"],
+        image_height=offer["image_height"],
+        offer_upload_date=offer["offer_upload_date"],
+        source_link=offer["source_link"],
+    )
