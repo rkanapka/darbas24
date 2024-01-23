@@ -20,8 +20,8 @@ class HomePageView(generic.ListView):
         )
 
         if query_title or query_location or query_category:
-            return JobOffer.objects.filter(job_search_filter)
-        return JobOffer.objects.all()
+            return JobOffer.objects.filter(job_search_filter).order_by("id")
+        return JobOffer.objects.all().order_by("id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
