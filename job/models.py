@@ -53,6 +53,7 @@ class JobOffer(models.Model):
 
 class JobCity(models.Model):
     name = models.CharField(max_length=255)
+    locative_case_name = models.CharField(max_length=255)
 
     class Meta:
         verbose_name_plural = "cities"
