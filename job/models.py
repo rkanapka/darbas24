@@ -18,37 +18,8 @@ class JobOffer(models.Model):
 
     @property
     def category_color(self):
-        return {
-            "Administravimas/darbų sauga": "bg-soft-light-red",
-            "Apsauga": "bg-soft-light-orange",
-            "Dizainas/architektūra": "bg-soft-light-yellow",
-            "Draudimas": "bg-soft-light-lime",
-            "Eksportas": "bg-soft-light-mint",
-            "Energetika/elektronika": "bg-soft-light-steel-blue",
-            "Finansai/apskaita/bankininkystė": "bg-soft-light-pink",
-            "Gamyba": "bg-soft-light-purple",
-            "Informacinės technologijos": "bg-soft-light-blue",
-            "Inžinerija/mechanika": "bg-soft-light-cyan",
-            "Klientų aptarnavimas/paslaugos": "bg-soft-light-green",
-            "Maisto gamyba": "bg-soft-light-gold",
-            "Marketingas/reklama": "bg-soft-light-peach",
-            "Medicina/farmacija": "bg-soft-light-lavender",
-            "Nekilnojamasis turtas": "bg-soft-light-rose",
-            "Pardavimų vadyba": "bg-soft-light-apricot",
-            "Personalo valdymas": "bg-soft-light-chartreuse",
-            "Pirkimai/tiekimas": "bg-soft-light-turquoise",
-            "Prekyba - konsultavimas": "bg-soft-light-cornflower",
-            "Sandėliavimas": "bg-soft-soft-red",
-            "Statyba": "bg-soft-soft-orange",
-            "Švietimas/mokymai/kultūra": "bg-soft-soft-beige",
-            "Teisė": "bg-soft-soft-mint",
-            "Transporto vairavimas": "bg-soft-soft-pastel-green",
-            "Transporto/logistikos vadyba": "bg-soft-soft-lavender-grey",
-            "Vadovavimas/kokybės vadyba": "bg-soft-soft-pink",
-            "Valstybinis/viešasis administravimas": "bg-soft-soft-lilac",
-            "Žemės ūkis": "bg-soft-soft-sky-blue",
-            "Žiniasklaida/komunikacija": "bg-soft-soft-aqua",
-        }.get(self.category)
+        category = JobCategory.objects.get(name=self.category)
+        return category.bg_color
 
 
 class JobCity(models.Model):
@@ -64,6 +35,8 @@ class JobCity(models.Model):
 
 class JobCategory(models.Model):
     name = models.CharField(max_length=255)
+    bg_color = models.CharField(max_length=50)
+    cvbankas_url = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = "catgories"

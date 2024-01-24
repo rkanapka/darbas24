@@ -3,203 +3,261 @@
       "model": "job.jobcategory",
       "pk": 1,
       "fields": {
-        "name": "Administravimas/darbų sauga"
+        "name": "Administravimas/darbų sauga",
+        "bg_color": "bg-soft-light-red",
+        "cvbankas_url": "darbo-pasiulymai-administratoriams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 2,
       "fields": {
-        "name": "Apsauga"
+        "name": "Apsauga",
+        "bg_color": "bg-soft-light-orange",
+        "cvbankas_url": "darbo-pasiulymai-apsaugos-darbuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 3,
       "fields": {
-        "name": "Dizainas/architektūra"
+        "name": "Dizainas/architektūra",
+        "bg_color": "bg-soft-light-yellow",
+        "cvbankas_url": "darbo-pasiulymai-dizaineriams-maketuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 4,
       "fields": {
-        "name": "Draudimas"
+        "name": "Draudimas",
+        "bg_color": "bg-soft-light-lime",
+        "cvbankas_url": "darbo-pasiulymai-draudimo-specialistams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 5,
       "fields": {
-        "name": "Eksportas"
+        "name": "Eksportas",
+        "bg_color": "bg-soft-light-mint",
+        "cvbankas_url": "darbo-pasiulymai-eksporto-vadybininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 6,
       "fields": {
-        "name": "Energetika/elektronika"
+        "name": "Energetika/elektronika",
+        "bg_color": "bg-soft-light-steel-blue",
+        "cvbankas_url": "darbo-pasiulymai-elektrikams-elektronikams-montuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 7,
       "fields": {
-        "name": "Finansai/apskaita/bankininkystė"
+        "name": "Finansai/apskaita/bankininkystė",
+        "bg_color": "bg-soft-light-pink",
+        "cvbankas_url": "darbo-pasiulymai-buhalteriams-finansininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 8,
       "fields": {
-        "name": "Gamyba"
+        "name": "Gamyba",
+        "bg_color": "bg-soft-light-purple",
+        "cvbankas_url": "darbo-pasiulymai-gamybos-darbuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 9,
       "fields": {
-        "name": "Informacinės technologijos"
+        "name": "Informacinės technologijos",
+        "bg_color": "bg-soft-light-blue",
+        "cvbankas_url": "darbo-pasiulymai-programuotojams-it-specialistams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 10,
       "fields": {
-        "name": "Inžinerija/mechanika"
+        "name": "Inžinerija/mechanika",
+        "bg_color": "bg-soft-light-cyan",
+        "cvbankas_url": "darbo-pasiulymai-inzinieriams-mechanikams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 11,
       "fields": {
-        "name": "Klientų aptarnavimas/paslaugos"
+        "name": "Klientų aptarnavimas/paslaugos",
+        "bg_color": "bg-soft-light-green",
+        "cvbankas_url": "darbo-pasiulymai-klientu-aptarnavimo-srityje"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 12,
       "fields": {
-        "name": "Maisto gamyba"
+        "name": "Maisto gamyba",
+        "bg_color": "bg-soft-light-gold",
+        "cvbankas_url": "darbo-pasiulymai-virejams-kepejams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 13,
       "fields": {
-        "name": "Marketingas/reklama"
+        "name": "Marketingas/reklama",
+        "bg_color": "bg-soft-light-peach",
+        "cvbankas_url": "darbo-pasiulymai-marketingo-specialistams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 14,
       "fields": {
-        "name": "Medicina/farmacija"
+        "name": "Medicina/farmacija",
+        "bg_color": "bg-soft-light-lavender",
+        "cvbankas_url": "darbo-pasiulymai-gydytojams-slaugytojams-farmacininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 15,
       "fields": {
-        "name": "Nekilnojamasis turtas"
+        "name": "Nekilnojamasis turtas",
+        "bg_color": "bg-soft-light-rose",
+        "cvbankas_url": "darbo-pasiulymai-nt-brokeriams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 16,
       "fields": {
-        "name": "Pardavimų vadyba"
+        "name": "Pardavimų vadyba",
+        "bg_color": "bg-soft-light-apricot",
+        "cvbankas_url": "darbo-pasiulymai-pardavimu-vadybininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 17,
       "fields": {
-        "name": "Personalo valdymas"
+        "name": "Personalo valdymas",
+        "bg_color": "bg-soft-light-chartreuse",
+        "cvbankas_url": "darbo-pasiulymai-personalo-specialistams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 18,
       "fields": {
-        "name": "Pirkimai/tiekimas"
+        "name": "Pirkimai/tiekimas",
+        "bg_color": "bg-soft-light-turquoise",
+        "cvbankas_url": "darbo-pasiulymai-pirkimu-tiekimo-specialistams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 19,
       "fields": {
-        "name": "Prekyba - konsultavimas"
+        "name": "Prekyba - konsultavimas",
+        "bg_color": "bg-soft-light-cornflower",
+        "cvbankas_url": "darbo-pasiulymai-pardavejams-konsultantams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 20,
       "fields": {
-        "name": "Sandėliavimas"
+        "name": "Sandėliavimas",
+        "bg_color": "bg-soft-soft-red",
+        "cvbankas_url": "darbo-pasiulymai-sandelio-darbuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 21,
       "fields": {
-        "name": "Statyba"
+        "name": "Statyba",
+        "bg_color": "bg-soft-soft-beige",
+        "cvbankas_url": "darbo-pasiulymai-statybininkams-statybos-projektu-vadovams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 22,
       "fields": {
-        "name": "Švietimas/mokymai/kultūra"
+        "name": "Švietimas/mokymai/kultūra",
+        "bg_color": "bg-soft-soft-mint",
+        "cvbankas_url": "darbo-pasiulymai-mokytojams-aukletojams-treneriams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 23,
       "fields": {
-        "name": "Teisė"
+        "name": "Teisė",
+        "bg_color": "bg-soft-soft-pastel-green",
+        "cvbankas_url": "darbo-pasiulymai-teisininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 24,
       "fields": {
-        "name": "Transporto vairavimas"
+        "name": "Transporto vairavimas",
+        "bg_color": "bg-soft-soft-lavender-grey",
+        "cvbankas_url": "darbo-pasiulymai-vairuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 25,
       "fields": {
-        "name": "Transporto/logistikos vadyba"
+        "name": "Transporto/logistikos vadyba",
+        "bg_color": "bg-soft-soft-pink",
+        "cvbankas_url": "darbo-pasiulymai-transporto-vadybininkams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 26,
       "fields": {
-        "name": "Vadovavimas/kokybės vadyba"
+        "name": "Vadovavimas/kokybės vadyba",
+        "bg_color": "bg-soft-soft-lilac",
+        "cvbankas_url": "darbo-pasiulymai-vadovams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 27,
       "fields": {
-        "name": "Valstybinis/viešasis administravimas"
+        "name": "Valstybinis/viešasis administravimas",
+        "bg_color": "bg-soft-soft-sky-blue",
+        "cvbankas_url": "darbo-pasiulymai-valstybes-tarnautojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 28,
       "fields": {
-        "name": "Žemės ūkis"
+        "name": "Žemės ūkis",
+        "bg_color": "bg-soft-soft-aqua",
+        "cvbankas_url": "darbo-pasiulymai-zemes-ukio-darbuotojams"
       }
     },
     {
       "model": "job.jobcategory",
       "pk": 29,
       "fields": {
-        "name": "Žiniasklaida/komunikacija"
+        "name": "Žiniasklaida/komunikacija",
+        "bg_color": "bg-soft-soft-orange",
+        "cvbankas_url": "darbo-pasiulymai-zurnalistams-viesuju-rysiu-specialistams"
       }
     }
   ]
