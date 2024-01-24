@@ -8,28 +8,39 @@ from .scraper import IScraper
 
 
 class CVBankas(IScraper):
-    def __init__(self):
-        self.url = "https://www.cvbankas.lt"
+    def __init__(self, category_url_slugs):
+        self.category_url_slugs = category_url_slugs
+        self.url = "https://www.cvbankas.lt/"
         self.source = "cvbankas"
         self.job_offers = []
+        self.requests_rate = 10
+        self.requests_time_period_secs = 6
 
         asyncio.run(self.fetch())
 
     async def fetch(self):
         try:
             tasks = []
-            throttler = AsyncLimiter(max_rate=10, time_period=6)
+            throttler = AsyncLimiter(
+                max_rate=self.requests_rate, time_period=self.requests_time_period_secs
+            )
             async with AsyncClient() as session:
-                last_page_number = await self.get_last_page_number(session=session)
-                tasks = [
-                    asyncio.create_task(
-                        self.scrape_page(
-                            page_number, session=session, throttler=throttler
-                        ),
-                        name=f"Page {page_number}",
+                for cat_url_slug in self.category_url_slugs:
+                    last_page_number = await self.get_last_page_number(
+                        cat_url_slug=cat_url_slug, session=session
                     )
-                    for page_number in range(1, last_page_number + 1)
-                ]
+                    for page_number in range(1, last_page_number + 1):
+                        tasks.append(
+                            asyncio.create_task(
+                                self.scrape_page(
+                                    cat_url_slug=cat_url_slug,
+                                    page_number=page_number,
+                                    session=session,
+                                    throttler=throttler,
+                                ),
+                                name=f"Page {page_number}",
+                            )
+                        )
                 done, pending = await asyncio.wait(
                     tasks, return_when=asyncio.ALL_COMPLETED
                 )
@@ -41,9 +52,9 @@ class CVBankas(IScraper):
         except Exception as exc:
             print("The scraping job failed. See exception:", exc, sep="\n")
 
-    async def scrape_page(self, page_number, session, throttler):
+    async def scrape_page(self, cat_url_slug, page_number, session, throttler):
         async with throttler:
-            r = await session.get(f"{self.url}?page={page_number}")
+            r = await session.get(f"{self.url}{cat_url_slug}?page={page_number}")
             soup = BeautifulSoup(r.content, features="xml")
             articles = soup.findAll("article")
             for a in articles:
@@ -70,12 +81,10 @@ class CVBankas(IScraper):
                     "" if offer_upload_date is None else offer_upload_date.text
                 )
 
-                # category = await self.get_job_offer_category(job_link, session=session)
-
                 self.job_offers.append(
                     {
                         "title": title,
-                        "category": "test",
+                        "category": cat_url_slug,
                         "company": company,
                         "salary": salary,
                         "salary_period": salary_period,
@@ -90,15 +99,10 @@ class CVBankas(IScraper):
                     }
                 )
 
-    async def get_last_page_number(self, session):
-        home_request = await session.get(f"{self.url}")
+    async def get_last_page_number(self, cat_url_slug, session):
+        home_request = await session.get(f"{self.url}{cat_url_slug}")
         home_soup = BeautifulSoup(home_request.content, features="xml")
         ul_pages_element = home_soup.find("ul", {"class": "pages_ul_inner"})
-        il_pages_elements = ul_pages_element.find_all("li")
-        return int(il_pages_elements[-1].text)
-
-    async def get_job_offer_category(self, job_link, session):
-        offer_request = await session.get(job_link)
-        offer_soup = BeautifulSoup(offer_request.content, features="xml")
-        li_elements = offer_soup.find_all("li", {"class": "nav_additional_li"})
-        return li_elements[-1].text
+        if ul_pages_element is None:
+            return 1
+        return int(ul_pages_element.find_all("li")[-1].text)

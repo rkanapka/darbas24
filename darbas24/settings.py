@@ -151,7 +151,7 @@ CELERY_BROKER_URL = (
 
 CELERY_BEAT_SCHEDULE = {
     "scrape_job_offers": {
-        "task": "job.tasks.scrape_and_save_job_offers",
+        "task": "job.tasks.scrape_cvbankas",
         "schedule": 200.0,
     }
 }
