@@ -8,8 +8,15 @@ class JobOffer(models.Model):
     salary = models.CharField(max_length=50)
     salary_period = models.CharField(max_length=25)
     salary_calculation = models.CharField(max_length=25)
-    gross_pay = models.CharField(max_length=50, default="")
-    net_pay = models.CharField(max_length=50, default="")
+
+    pay_keyword = models.CharField(max_length=25, default="")
+    gross_pay = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    net_pay = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    gross_pay_from = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    gross_pay_to = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    net_pay_from = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    net_pay_to = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+
     location = models.CharField(max_length=50)
     job_link = models.CharField(max_length=2083, default="")
     image_link = models.CharField(max_length=2083, default="")
