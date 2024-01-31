@@ -136,14 +136,30 @@
                                              <td>
                                                 <div class="widget-26-job-salary">
                                                    <div id="NetPayment" style="display:block">
-                                                      <p class="type m-0" >{{ job_offer.net_pay }} {{ job_offer.salary_period }}</p>
-                                                      {% if job_offer.net_pay %}
+                                                      <p class="type m-0" >
+                                                         {% if job_offer.net_pay %}
+                                                            {{ job_offer.pay_keyword }}{{ job_offer.net_pay|floatformat:0 }}
+                                                         {% endif %}
+                                                         {% if job_offer.net_pay_from %}
+                                                            {{ job_offer.net_pay_from|floatformat:0 }}-{{ job_offer.net_pay_to|floatformat:0 }}
+                                                         {% endif %}
+                                                         {{ job_offer.salary_period }}
+                                                      </p>
+                                                      {% if job_offer.net_pay or job_offer.net_pay_from %}
                                                          <p class="text-muted m-0"><span class="location">Į rankas</span></p>
                                                       {% endif %}
                                                    </div>
                                                    <div  id="GrossPayment" style="display:none">
-                                                      <p class="type m-0">{{ job_offer.gross_pay }} {{ job_offer.salary_period }}</p>
+                                                      <p class="type m-0">
                                                       {% if job_offer.gross_pay %}
+                                                         {{ job_offer.pay_keyword }}{{ job_offer.gross_pay|floatformat:0 }}
+                                                      {% endif %}
+                                                      {% if job_offer.gross_pay_from %}
+                                                         {{ job_offer.gross_pay_from|floatformat:0 }}-{{ job_offer.gross_pay_to|floatformat:0 }}
+                                                      {% endif %}
+                                                      {{ job_offer.salary_period }}
+                                                      </p>
+                                                      {% if job_offer.gross_pay or job_offer.gross_pay_from %}
                                                          <p class="text-muted m-0"><span class="location">Ant popieriaus</span></p>
                                                       {% endif %}
                                                    </div>
