@@ -8,6 +8,8 @@ class JobOffer(models.Model):
     salary = models.CharField(max_length=50)
     salary_period = models.CharField(max_length=25)
     salary_calculation = models.CharField(max_length=25)
+    gross_pay = models.CharField(max_length=50, default="")
+    net_pay = models.CharField(max_length=50, default="")
     location = models.CharField(max_length=50)
     job_link = models.CharField(max_length=2083, default="")
     image_link = models.CharField(max_length=2083, default="")
