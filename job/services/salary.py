@@ -1,7 +1,7 @@
 from types import MappingProxyType
 
 
-class Salary:
+class SalaryService:
     pension_rate = MappingProxyType(
         {"not_accumulate": 0, "accumulateGradually": 0.027, "accumulate": 0.03}
     )
