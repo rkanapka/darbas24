@@ -1,10 +1,14 @@
 import time
+from decimal import Decimal
 
 from celery import shared_task
 
 from .models import JobCategory, JobOffer
 from .scrapers.cvbankas import CVBankas
 from .services.salary import SalaryService
+
+WORK_HOURS_IN_MONTH = 168
+WORK_DAYS_IN_MONTH = 21
 
 
 @shared_task(serializer="json")
@@ -47,46 +51,90 @@ def process_single_job_offer(
 ):
     offer["title"] = offer["title"][:title_max_length]
     offer["category"] = category_slugs_with_names.get(offer["category"], "")
-    offer["gross_pay"], offer["net_pay"] = "", ""
 
     if offer["salary"]:
-        process_salary(offer, salary_service)
-
+        offer = process_salary(offer, salary_service)
     return create_job_offer_object(offer)
 
 
 def process_salary(offer, salary_service):
-    pay_range_start, pay_range_end, pay, pay_keyword = None, None, None, None
+    pay_range_start, pay_range_end, pay, scraped_pay_keyword = None, None, None, None
+    is_payment_net = offer["salary_calculation"] == "Į rankas"
+    offer["salary"] = offer["salary"].replace(",", ".")
 
-    if "mėn" in offer["salary_period"]:  # TODO solve edge cases: €/d. or €/val
-        if "-" in offer["salary"]:
-            pay_range_start, pay_range_end = offer["salary"].split("-")
-        else:
-            pay_parts = offer["salary"].split()
-            pay = next((int(s) for s in pay_parts if s.isdigit()), None)
-            pay_keyword = next((s for s in pay_parts if s.isalpha()), "")
-            pay_keyword += " " if pay_keyword else ""
+    if "-" in offer["salary"]:
+        pay_range_start, pay_range_end = [
+            Decimal(amount) for amount in offer["salary"].split("-")
+        ]
+        pay_range_start, pay_range_end = calculate_monthly_rate_pay_range(
+            offer, pay_range_start, pay_range_end
+        )
+    else:
+        scraped_pay_parts = offer["salary"].split()
+        scraped_pay_keyword = parse_payment_keyword(scraped_pay_parts)
+        scraped_pay = next(
+            (Decimal(s) for s in scraped_pay_parts if s.replace(".", "").isdigit()),
+            None,
+        )
+        pay = calculate_monthly_rate_for_single_pay(offer, scraped_pay)
 
-        is_payment_net = offer["salary_calculation"] == "Į rankas"
+    if pay is not None:
+        calculated_pay = salary_service.calculate_pay(pay, is_payment_net)
+        processed_offer = set_single_payment(
+            offer, pay, scraped_pay_keyword, is_payment_net, calculated_pay
+        )
+    else:
+        pay_from = salary_service.calculate_pay(pay_range_start, is_payment_net)
+        pay_to = salary_service.calculate_pay(pay_range_end, is_payment_net)
+        processed_offer = set_payment_range(
+            offer, pay_range_start, pay_range_end, is_payment_net, pay_from, pay_to
+        )
+    return processed_offer
 
-        if pay is not None:
-            pay = salary_service.calculate_pay(pay, is_payment_net)
-            offer["gross_pay"], offer["net_pay"] = (
-                (f"{pay_keyword}{pay}", offer["salary"])
-                if offer["salary_calculation"] == "Į rankas"
-                else (offer["salary"], f"{pay_keyword}{pay}")
-            )
-        else:
-            pay_from = salary_service.calculate_pay(
-                int(pay_range_start), is_payment_net
-            )
-            pay_to = salary_service.calculate_pay(int(pay_range_end), is_payment_net)
 
-            offer["gross_pay"], offer["net_pay"] = (
-                (f"{pay_from}-{pay_to}", offer["salary"])
-                if offer["salary_calculation"] == "Į rankas"
-                else (offer["salary"], f"{pay_from}-{pay_to}")
-            )
+def parse_payment_keyword(pay_parts):
+    pay_keyword = next((s for s in pay_parts if s.isalpha()), "")
+    pay_keyword += " " if pay_keyword else ""
+    return pay_keyword
+
+
+def set_single_payment(offer, pay, scraped_pay_keyword, is_payment_net, calculated_pay):
+    offer["pay_keyword"] = scraped_pay_keyword
+    if is_payment_net:
+        offer["gross_pay"], offer["net_pay"] = calculated_pay, pay
+    else:
+        offer["gross_pay"], offer["net_pay"] = pay, calculated_pay
+    return offer
+
+
+def set_payment_range(
+    offer, pay_range_start, pay_range_end, is_payment_net, pay_from, pay_to
+):
+    if is_payment_net:
+        offer["gross_pay_from"], offer["gross_pay_to"] = pay_from, pay_to
+        offer["net_pay_from"], offer["net_pay_to"] = pay_range_start, pay_range_end
+    else:
+        offer["gross_pay_from"], offer["gross_pay_to"] = pay_range_start, pay_range_end
+        offer["net_pay_from"], offer["net_pay_to"] = pay_from, pay_to
+    return offer
+
+
+def calculate_monthly_rate_pay_range(offer, pay_range_start, pay_range_end):
+    if "€/val." in offer["salary_period"]:
+        pay_range_start = pay_range_start * WORK_HOURS_IN_MONTH
+        pay_range_end = pay_range_end * WORK_HOURS_IN_MONTH
+    if "€/d." in offer["salary_period"]:
+        pay_range_start = pay_range_start * WORK_DAYS_IN_MONTH
+        pay_range_end = pay_range_end * WORK_DAYS_IN_MONTH
+    return pay_range_start, pay_range_end
+
+
+def calculate_monthly_rate_for_single_pay(offer, pay):
+    if "€/val." in offer["salary_period"]:
+        pay = pay * WORK_HOURS_IN_MONTH
+    if "€/d." in offer["salary_period"]:
+        pay = pay * WORK_DAYS_IN_MONTH
+    return pay
 
 
 def save_job_offers(job_offer_objects):
@@ -107,8 +155,13 @@ def create_job_offer_object(offer):
         salary=offer["salary"],
         salary_period=offer["salary_period"],
         salary_calculation=offer["salary_calculation"],
-        gross_pay=offer["gross_pay"],
-        net_pay=offer["net_pay"],
+        pay_keyword=offer.get("pay_keyword", ""),
+        gross_pay=offer.get("gross_pay", None),
+        net_pay=offer.get("net_pay", None),
+        gross_pay_from=offer.get("gross_pay_from", None),
+        gross_pay_to=offer.get("gross_pay_to", None),
+        net_pay_from=offer.get("net_pay_from", None),
+        net_pay_to=offer.get("net_pay_to", None),
         location=offer["location"],
         job_link=offer["job_link"],
         image_link=offer["image_link"],
