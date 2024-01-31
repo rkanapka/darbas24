@@ -143,13 +143,15 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Celery
+# Celery configuration
 
-CELERY_BROKER_URL = "amqp://admin:mypass@rabbit:5672"
+CELERY_BROKER_URL = (
+    f"amqp://{os.environ.get('RMQ_USER')}:{os.environ.get('RMQ_PASS')}@rabbit:5672"
+)
 
 CELERY_BEAT_SCHEDULE = {
     "scrape_job_offers": {
-        "task": "job.tasks.scrape_and_save_job_offers",
+        "task": "job.tasks.scrape_cvbankas",
         "schedule": 200.0,
     }
 }

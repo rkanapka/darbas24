@@ -20,8 +20,8 @@ class HomePageView(generic.ListView):
         )
 
         if query_title or query_location or query_category:
-            return JobOffer.objects.filter(job_search_filter)
-        return JobOffer.objects.all()
+            return JobOffer.objects.filter(job_search_filter).order_by("id")
+        return JobOffer.objects.all().order_by("id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,77 +38,13 @@ class HomePageView(generic.ListView):
         job_search_filter = Q(title__icontains=query_title)
 
         if query_location:
-            locative_city = self.transform_city_to_locative_case(query_location)
+            locative_city = self.get_locative_case_of_city(query_location)
             job_search_filter &= Q(location=locative_city)
 
         if query_category:
             job_search_filter &= Q(category=query_category)
         return job_search_filter
 
-    def transform_city_to_locative_case(self, location_query):
-        return {
-            "Vilnius": "Vilniuje",
-            "Kaunas": "Kaune",
-            "Klaipėda": "Klaipėdoje",
-            "Šiauliai": "Šiauliuose",
-            "Panevėžys": "Panevėžyje",
-            "Akmenė": "Akmėnėje",
-            "Alytus": "Alytuje",
-            "Anykščiai": "Anykščiuose",
-            "Birštonas": "Birštone",
-            "Biržai": "Biržuose",
-            "Druskininkai": "Druskininkuose",
-            "Elektrėnai": "Elektrėnuose",
-            "Gargždai": "Gargžduose",
-            "Ignalina": "Ignalinoje",
-            "Jonava": "Jonavoje",
-            "Joniškis": "Joniškyje",
-            "Jurbarkas": "Jurbarkuose",
-            "Kaišiadorys": "Kaišiadoryse",
-            "Kalvarija": "Kalvarijoje",
-            "Kazlų Rūda": "Kazlų Rūdoje",
-            "Kėdainiai": "Kėdainiuose",
-            "Kelmė": "Kelmėje",
-            "Krekenava": "Krekenavoje",
-            "Kretinga": "Kretingoje",
-            "Kupiškis": "Kupiškyje",
-            "Kuršėnai": "Kuršėnuose",
-            "Lazdijai": "Lazdijuose",
-            "Lentvaris": "Lentvaryje",
-            "Marijampolė": "Marijampolėje",
-            "Mažeikiai": "Mažeikiuose",
-            "Molėtai": "Molėtuose",
-            "Naujoji Akmenė": "Naujojoje Akmėnėje",
-            "Nemenčinė": "Nemenčinėje",
-            "Neringa": "Neringoje",
-            "Pabradė": "Pabradėje",
-            "Pagėgiai": "Pagėgiuose",
-            "Pakruojis": "Pakruojoje",
-            "Palanga": "Palangoje",
-            "Pasvalys": "Pasvaliuose",
-            "Plungė": "Plungėje",
-            "Prienai": "Prienųose",
-            "Radviliškis": "Radviliškyje",
-            "Raseiniai": "Raseiniuose",
-            "Rietavas": "Rietave",
-            "Rokiškis": "Rokiškyje",
-            "Šakiai": "Šakiuose",
-            "Šalčininkai": "Šalčininkuose",
-            "Šilalė": "Šilalėje",
-            "Šilutė": "Šilutėje",
-            "Širvintos": "Širvintuose",
-            "Skuodas": "Skuode",
-            "Švenčionys": "Švenčionyse",
-            "Tauragė": "Tauragėje",
-            "Telšiai": "Telšiuose",
-            "Trakai": "Trakuose",
-            "Ukmergė": "Ukmergėje",
-            "Utena": "Utenoje",
-            "Varėna": "Varėnoje",
-            "Vievis": "Vievyje",
-            "Vilkaviškis": "Vilkaviškyje",
-            "Visaginas": "Visagine",
-            "Zarasai": "Zarase",
-            "Darbas namuose": "Namie",
-            "Užsienis": "Užsienyje",
-        }.get(location_query)
+    def get_locative_case_of_city(self, location_query):
+        city = JobCity.objects.get(name=location_query)
+        return city.locative_case_name
