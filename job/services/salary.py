@@ -1,3 +1,4 @@
+from decimal import Decimal
 from types import MappingProxyType
 
 
@@ -22,22 +23,25 @@ class SalaryService:
         psd = bruto * self.psd_rate
         vsd = bruto * self.vsd_rate
         gpm = (bruto - npd) * self.gpm_rate
-        return bruto - psd - vsd - gpm
+        return self.format_amount(bruto - psd - vsd - gpm)
 
     def calculate_bruto(self, neto, pension_type="not_accumulate"):
         first_case_bruto = neto / (0.805 - self.pension_rate[pension_type])
         if first_case_bruto <= self.npd_limit:
-            return first_case_bruto
+            return self.format_amount(first_case_bruto)
 
         second_case_bruto = (neto - 149.4) / (
             self.post_tax_rate - self.pension_rate[pension_type]
         )
         if second_case_bruto <= self.mma:
-            return second_case_bruto
+            return self.format_amount(second_case_bruto)
 
         third_case_bruto = (neto - 241.8) / (0.505 - self.pension_rate[pension_type])
         if third_case_bruto <= self.npd_bruto_limit:
-            return third_case_bruto
+            return self.format_amount(third_case_bruto)
 
         fourth_case_bruto = neto / self.post_tax_rate
-        return fourth_case_bruto
+        return self.format_amount(fourth_case_bruto)
+
+    def format_amount(self, amount):
+        return Decimal(amount).quantize(Decimal("0.00"))
