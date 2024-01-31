@@ -18,6 +18,11 @@ class SalaryService:
     total_tax_rate = psd_rate + vsd_rate + gpm_rate
     post_tax_rate = 1 - total_tax_rate
 
+    def calculate_pay(self, payment_amount, is_pay_net):
+        if is_pay_net:
+            return self.calculate_bruto(payment_amount)
+        return self.calculate_neto(payment_amount)
+
     def calculate_neto(self, bruto):
         npd = self.npd_limit - 0.5 * (bruto - self.mma)
         psd = bruto * self.psd_rate
@@ -44,4 +49,4 @@ class SalaryService:
         return self.format_amount(fourth_case_bruto)
 
     def format_amount(self, amount):
-        return Decimal(amount).quantize(Decimal("0.00"))
+        return Decimal(amount).quantize(Decimal("0"))
