@@ -55,4 +55,4 @@ class SalaryService:
         return self.format_amount(fourth_case_bruto)
 
     def format_amount(self, amount):
-        return Decimal(amount).quantize(Decimal("0"))
+        return Decimal(amount).quantize(Decimal("0.00"))
