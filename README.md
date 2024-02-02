@@ -5,7 +5,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]<br/>
+[![Issues][issues-shield]][issues-url]
 
 
 <br />
@@ -145,6 +145,16 @@ Open your web browser and navigate to `http://localhost:8000` to explore the job
    ```
 2. Login to django site panel:<br/>
 [ http://localhost:8000/admin/login](http://localhost:8000/admin/login)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Testing
+### Unit tests & coverage 
+1. Run unit tests and generate coverage report:
+   ```bash
+    docker exec -it darbas24-web-1 coverage run --source='.' manage.py test
+    docker exec -it darbas24-web-1 coverage report
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
