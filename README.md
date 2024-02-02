@@ -1,10 +1,12 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
+[![codecov](https://codecov.io/gh/rkanapka/darbas24/graph/badge.svg?token=XN37MKVTU5)](https://codecov.io/gh/rkanapka/darbas24)<br/>
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+[![Issues][issues-shield]][issues-url]<br/>
+
 
 <br />
 <div align="center">
