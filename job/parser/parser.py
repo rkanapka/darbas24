@@ -8,18 +8,19 @@ from job.services.salary import SalaryService
 class JobParser:
     work_hours_in_month = 168
     work_days_in_month = 21
+    title_max_length = JobOffer._meta.get_field("title").max_length
+    salary_service = SalaryService()
 
     def process_job_offers(self, job_offers):
         print("Processing offers")
         start_time = time.time()
         try:
             category_slugs_with_names = self.get_category_slugs_with_names()
-            title_max_length = JobOffer._meta.get_field("title").max_length
-            salary_service = SalaryService()
             processed_job_offers = []
             for offer in job_offers:
                 processed_offer = self.process_single_job_offer(
-                    offer, category_slugs_with_names, title_max_length, salary_service
+                    offer,
+                    category_slugs_with_names,
                 )
                 processed_job_offers.append(processed_offer)
             print("Finished processing in: %s seconds" % (time.time() - start_time))
@@ -33,17 +34,15 @@ class JobParser:
             for category in JobCategory.objects.all()
         }
 
-    def process_single_job_offer(
-        self, offer, category_slugs_with_names, title_max_length, salary_service
-    ):
-        offer["title"] = offer["title"][:title_max_length]
+    def process_single_job_offer(self, offer, category_slugs_with_names):
+        offer["title"] = offer["title"][: self.title_max_length]
         offer["category"] = category_slugs_with_names.get(offer["category"], "")
 
         if offer["salary"]:
-            offer = self.process_salary(offer, salary_service)
+            offer = self.process_salary(offer)
         return self.create_job_offer_object(offer)
 
-    def process_salary(self, offer, salary_service):
+    def process_salary(self, offer):
         pay_range_start, pay_range_end, pay, scraped_pay_keyword = (
             None,
             None,
@@ -70,13 +69,15 @@ class JobParser:
             pay = self.calculate_monthly_rate_for_single_pay(offer, scraped_pay)
 
         if pay is not None:
-            calculated_pay = salary_service.calculate_pay(pay, is_payment_net)
+            calculated_pay = self.salary_service.calculate_pay(pay, is_payment_net)
             processed_offer = self.set_single_payment(
                 offer, pay, scraped_pay_keyword, is_payment_net, calculated_pay
             )
         else:
-            pay_from = salary_service.calculate_pay(pay_range_start, is_payment_net)
-            pay_to = salary_service.calculate_pay(pay_range_end, is_payment_net)
+            pay_from = self.salary_service.calculate_pay(
+                pay_range_start, is_payment_net
+            )
+            pay_to = self.salary_service.calculate_pay(pay_range_end, is_payment_net)
             processed_offer = self.set_payment_range(
                 offer, pay_range_start, pay_range_end, is_payment_net, pay_from, pay_to
             )
