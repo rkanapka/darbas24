@@ -46,5 +46,8 @@ class HomePageView(generic.ListView):
         return job_search_filter
 
     def get_locative_case_of_city(self, location_query):
-        city = JobCity.objects.get(name=location_query)
-        return city.locative_case_name
+        try:
+            city = JobCity.objects.get(name=location_query)
+            return city.locative_case_name
+        except JobCity.DoesNotExist:
+            return location_query
