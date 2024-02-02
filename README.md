@@ -149,7 +149,7 @@ Open your web browser and navigate to `http://localhost:8000` to explore the job
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Testing
-### Unit tests & coverage 
+### Unit tests & coverage
 1. Run unit tests and generate coverage report:
    ```bash
     docker exec -it darbas24-web-1 coverage run --source='.' manage.py test
@@ -157,6 +157,16 @@ Open your web browser and navigate to `http://localhost:8000` to explore the job
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Scheduled jobs
+
+### Run scheduled jobs manually with Celery
+1. Run command and wait for job to start:
+   ```bash
+    docker exec -it darbas24-web-1 celery -A darbas24 worker -B -l INFO
+   ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- CONTRIBUTING -->
 ## Contributing
