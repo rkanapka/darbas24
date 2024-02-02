@@ -41,10 +41,17 @@ jobs:
       - name: Check Python version
         run: python --version
       - name: Install requirements
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.0
       - name: Run Migrations
         run: python manage.py migrate
       - name: Run Test
-        run: python manage.py test
+        run: |
+          pip install coverage==7.4.1
+          coverage run --source='.' manage.py test
+          coverage report
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
