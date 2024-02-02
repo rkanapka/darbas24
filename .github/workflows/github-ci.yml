@@ -48,6 +48,12 @@ jobs:
         run: python manage.py migrate
       - name: Run Test
         run: python manage.py test
+      - name: Generate Report
+        run: |
+          pip install codecov
+          pip install pytest-cov
+          pytest --cov=./ --cov-report=xml
+          codecov
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
