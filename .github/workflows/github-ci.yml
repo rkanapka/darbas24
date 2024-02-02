@@ -47,13 +47,10 @@ jobs:
       - name: Run Migrations
         run: python manage.py migrate
       - name: Run Test
-        run: python manage.py test
-      - name: Generate Report
         run: |
-          pip install codecov
-          pip install pytest-cov
-          pytest --cov=./ --cov-report=xml
-          codecov
+          pip install coverage==7.4.1
+          coverage run --source='.' manage.py test
+          coverage report
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
