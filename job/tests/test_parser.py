@@ -151,3 +151,16 @@ class TestJobParser(TestCase):
         self.assertEqual(processed_job_offers[1].gross_pay_to, Decimal("9719.01"))
         self.assertEqual(processed_job_offers[1].net_pay_from, Decimal("3444.0"))
         self.assertEqual(processed_job_offers[1].net_pay_to, Decimal("5880"))
+
+    def test_daily_rate_pay_range(self):
+        processed_pay_range = self.parser.calculate_monthly_rate_pay_range(
+            {"salary_period": "€/d."}, Decimal(100), Decimal(200)
+        )
+        self.assertEqual(processed_pay_range[0], Decimal("2100.0"))
+        self.assertEqual(processed_pay_range[1], Decimal("4200.0"))
+
+    def test_hourly_rate_for_single_pay(self):
+        processed_pay = self.parser.calculate_monthly_rate_for_single_pay(
+            {"salary_period": "€/val."}, Decimal(7.45)
+        )
+        self.assertEqual(processed_pay, Decimal("1251.60"))

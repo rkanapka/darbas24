@@ -119,14 +119,14 @@ class JobParser:
         if "€/d." in offer["salary_period"]:
             pay_range_start = pay_range_start * self.work_days_in_month
             pay_range_end = pay_range_end * self.work_days_in_month
-        return pay_range_start, pay_range_end
+        return Decimal(f"{pay_range_start:.2f}"), Decimal(f"{pay_range_end:.2f}")
 
     def calculate_monthly_rate_for_single_pay(self, offer, pay):
         if "€/val." in offer["salary_period"]:
             pay = pay * self.work_hours_in_month
         if "€/d." in offer["salary_period"]:
             pay = pay * self.work_days_in_month
-        return pay
+        return Decimal(f"{pay:.2f}")
 
     def create_job_offer_object(self, offer):
         return JobOffer(
