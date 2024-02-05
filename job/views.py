@@ -21,7 +21,7 @@ def job_offers_count_by_category_chart(request):
     queryset = (
         JobOffer.objects.values("category")
         .annotate(total=Count("category"))
-        .order_by("total")
+        .order_by("-total")
     )
     for entry in queryset:
         labels.append(entry["category"])
@@ -44,7 +44,6 @@ def job_categories_by_average_salary_chart(request):
             net_pay_range_average=(Sum("net_pay_from") + Sum("net_pay_to"))
             / Count("category")
         )
-        .order_by("net_pay_range_average")
     )
     jobs_with_single_pay = (
         JobOffer.objects.values("category")
@@ -52,7 +51,6 @@ def job_categories_by_average_salary_chart(request):
             Q(net_pay__isnull=False) & Q(net_pay__lt=salary_amount_to_ignore_offers)
         )
         .annotate(net_pay_average=(Sum("net_pay") / Count("category")))
-        .order_by("net_pay_average")
     )
 
     for job_with_pay_range in jobs_with_pay_range:
@@ -67,7 +65,7 @@ def job_categories_by_average_salary_chart(request):
         payment_amount = job_with_pay_range["net_pay_range_average"]
         data.append(f"{payment_amount:.2f}")
         colors.append(generate_random_rgb())
-
+    data, labels = zip(*sorted(zip(data, labels)))
     return JsonResponse(data={"labels": labels, "data": data, "colors": colors})
 
 
