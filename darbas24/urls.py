@@ -17,9 +17,38 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from job.views import (
+    InsightsView,
+    companies_with_most_offers_chart,
+    job_categories_by_average_salary_chart,
+    job_offers_by_salary_range_chart,
+    job_offers_count_by_category_chart,
+)
+
 from .views import HomePageView
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),
     path("admin/", admin.site.urls),
+    path("insights/", InsightsView.as_view(), name="insights"),
+    path(
+        "offers-count-by-category-chart/",
+        job_offers_count_by_category_chart,
+        name="offers-count-by-category-chart",
+    ),
+    path(
+        "job-categories-by-average-salary-chart/",
+        job_categories_by_average_salary_chart,
+        name="job-categories-by-average-salary-chart",
+    ),
+    path(
+        "job-offers-by-salary-range-chart/",
+        job_offers_by_salary_range_chart,
+        name="job-offers-by-salary-range-chart",
+    ),
+    path(
+        "companies-with-most-offers-chart/",
+        companies_with_most_offers_chart,
+        name="companies-with-most-offers-chart",
+    ),
 ]
