@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from job.views import InsightsView, job_offers_count_by_category_chart
+from job.views import (
+    InsightsView,
+    job_offers_by_salary_range_chart,
+    job_offers_count_by_category_chart,
+)
 
 from .views import HomePageView
 
@@ -29,5 +33,10 @@ urlpatterns = [
         "offers-count-by-category-chart/",
         job_offers_count_by_category_chart,
         name="offers-count-by-category-chart",
+    ),
+    path(
+        "job-offers-by-salary-range-chart/",
+        job_offers_by_salary_range_chart,
+        name="job-offers-by-salary-range-chart",
     ),
 ]

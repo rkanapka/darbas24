@@ -12,6 +12,9 @@
                         <div id="container">
                           <canvas id="offers-count-by-category-chart" data-url="{% url 'offers-count-by-category-chart' %}"></canvas>
                         </div>
+                        <div id="container">
+                          <canvas id="job-offers-by-salary-range-chart" data-url="{% url 'job-offers-by-salary-range-chart' %}"></canvas>
+                        </div>
                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
                         <script>
@@ -51,9 +54,45 @@
                             });
 
                           });
-
                         </script>
-                        {% endblock %}
+                        <script>
+                          $(function () {
+
+                            var $offersBySalaryRangeChart = $("#job-offers-by-salary-range-chart");
+                            $.ajax({
+                              url: $offersBySalaryRangeChart.data("url"),
+                              success: function (data) {
+
+                                var ctx = $offersBySalaryRangeChart[0].getContext("2d");
+
+                                new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                      label: 'Count',
+                                      backgroundColor: data.colors,
+                                      data: data.data
+                                    }]
+                                  },
+                                  options: {
+                                    responsive: true,
+                                    legend: {
+                                      display: false,
+                                    },
+                                    title: {
+                                      display: true,
+                                      text: 'Job Offers by Salary Range (Neto)'
+                                    },
+                                    indexAxis: 'y',
+                                  }
+                                });
+
+                              }
+                            });
+
+                          });
+                        </script>
                     </div>
                   </div>
               </div>
@@ -62,4 +101,5 @@
       </div>
   </div>
 </div>
+{% endblock %}
 {% include "footer.html" %}
