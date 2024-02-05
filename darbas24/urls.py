@@ -17,9 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from job.views import InsightsView, population_chart
+
 from .views import HomePageView
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),
     path("admin/", admin.site.urls),
+    path("insights/", InsightsView.as_view(), name="insights"),
+    path(
+        "offers-count-by-category-chart/",
+        population_chart,
+        name="offers-count-by-category-chart",
+    ),
 ]
