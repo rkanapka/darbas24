@@ -15,7 +15,7 @@ class InsightsView(TemplateView):
         return render(request, self.template_name)
 
 
-def population_chart(request):
+def job_offers_count_by_category_chart(request):
     labels, data, colors = [], [], []
 
     queryset = (
