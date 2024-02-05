@@ -102,6 +102,22 @@ def job_offers_by_salary_range_chart(request):
     return JsonResponse(data={"labels": labels, "data": data, "colors": colors})
 
 
+def companies_with_most_offers_chart(request):
+    labels, data, colors = [], [], []
+
+    query_set = (
+        JobOffer.objects.values("company")
+        .annotate(total=Count("company"))
+        .order_by("-total")[:10]
+    )
+    for entry in query_set:
+        labels.append(entry["company"])
+        data.append(entry["total"])
+        colors.append(generate_random_rgb())
+
+    return JsonResponse(data={"labels": labels, "data": data, "colors": colors})
+
+
 def generate_random_rgb(opacity=0.6):
     r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
     return f"rgba({r}, {g}, {b}, {opacity})"

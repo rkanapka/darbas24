@@ -18,6 +18,9 @@
                         <div id="container">
                           <canvas id="job-offers-by-salary-range-chart" data-url="{% url 'job-offers-by-salary-range-chart' %}"></canvas>
                         </div>
+                        <div id="container">
+                          <canvas id="companies-with-most-offers-chart" data-url="{% url 'companies-with-most-offers-chart' %}"></canvas>
+                        </div>
                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
                         <script>
@@ -124,6 +127,82 @@
                                     title: {
                                       display: true,
                                       text: 'Job Offer Categories by Average Salary (Neto)'
+                                    },
+                                    indexAxis: 'y',
+                                  }
+                                });
+
+                              }
+                            });
+
+                          });
+                        </script>
+                        <script>
+                          $(function () {
+
+                            var $categoriesByAverageSalaryChart = $("#job-categories-by-average-salary-chart");
+                            $.ajax({
+                              url: $categoriesByAverageSalaryChart.data("url"),
+                              success: function (data) {
+
+                                var ctx = $categoriesByAverageSalaryChart[0].getContext("2d");
+
+                                new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                      label: 'Average Salary',
+                                      backgroundColor: data.colors,
+                                      data: data.data
+                                    }]
+                                  },
+                                  options: {
+                                    responsive: true,
+                                    legend: {
+                                      display: false,
+                                    },
+                                    title: {
+                                      display: true,
+                                      text: 'Job Offer Categories by Average Salary (Neto)'
+                                    },
+                                    indexAxis: 'y',
+                                  }
+                                });
+
+                              }
+                            });
+
+                          });
+                        </script>
+                        <script>
+                          $(function () {
+
+                            var $companiesWIthMostJobOffersChart = $("#companies-with-most-offers-chart");
+                            $.ajax({
+                              url: $companiesWIthMostJobOffersChart.data("url"),
+                              success: function (data) {
+
+                                var ctx = $companiesWIthMostJobOffersChart[0].getContext("2d");
+
+                                new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                      label: 'Job offers Count',
+                                      backgroundColor: data.colors,
+                                      data: data.data
+                                    }]
+                                  },
+                                  options: {
+                                    responsive: true,
+                                    legend: {
+                                      display: false,
+                                    },
+                                    title: {
+                                      display: true,
+                                      text: 'TOP 10 Companies with most Job Offers'
                                     },
                                     indexAxis: 'y',
                                   }
