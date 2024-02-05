@@ -13,6 +13,9 @@
                           <canvas id="offers-count-by-category-chart" data-url="{% url 'offers-count-by-category-chart' %}"></canvas>
                         </div>
                         <div id="container">
+                          <canvas id="job-categories-by-average-salary-chart" data-url="{% url 'job-categories-by-average-salary-chart' %}"></canvas>
+                        </div>
+                        <div id="container">
                           <canvas id="job-offers-by-salary-range-chart" data-url="{% url 'job-offers-by-salary-range-chart' %}"></canvas>
                         </div>
                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -83,6 +86,44 @@
                                     title: {
                                       display: true,
                                       text: 'Job Offers by Salary Range (Neto)'
+                                    },
+                                    indexAxis: 'y',
+                                  }
+                                });
+
+                              }
+                            });
+
+                          });
+                        </script>
+                        <script>
+                          $(function () {
+
+                            var $categoriesByAverageSalaryChart = $("#job-categories-by-average-salary-chart");
+                            $.ajax({
+                              url: $categoriesByAverageSalaryChart.data("url"),
+                              success: function (data) {
+
+                                var ctx = $categoriesByAverageSalaryChart[0].getContext("2d");
+
+                                new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: data.labels,
+                                    datasets: [{
+                                      label: 'Average Salary',
+                                      backgroundColor: data.colors,
+                                      data: data.data
+                                    }]
+                                  },
+                                  options: {
+                                    responsive: true,
+                                    legend: {
+                                      display: false,
+                                    },
+                                    title: {
+                                      display: true,
+                                      text: 'Job Offer Categories by Average Salary (Neto)'
                                     },
                                     indexAxis: 'y',
                                   }

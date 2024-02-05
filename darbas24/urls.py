@@ -19,6 +19,7 @@ from django.urls import path
 
 from job.views import (
     InsightsView,
+    job_categories_by_average_salary_chart,
     job_offers_by_salary_range_chart,
     job_offers_count_by_category_chart,
 )
@@ -33,6 +34,11 @@ urlpatterns = [
         "offers-count-by-category-chart/",
         job_offers_count_by_category_chart,
         name="offers-count-by-category-chart",
+    ),
+    path(
+        "job-categories-by-average-salary-chart/",
+        job_categories_by_average_salary_chart,
+        name="job-categories-by-average-salary-chart",
     ),
     path(
         "job-offers-by-salary-range-chart/",
