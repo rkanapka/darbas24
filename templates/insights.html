@@ -13,10 +13,10 @@
                           <canvas id="offers-count-by-category-chart" data-url="{% url 'offers-count-by-category-chart' %}"></canvas>
                         </div>
                         <div id="container">
-                          <canvas id="job-categories-by-average-salary-chart" data-url="{% url 'job-categories-by-average-salary-chart' %}"></canvas>
+                          <canvas id="job-offers-by-salary-range-chart" data-url="{% url 'job-offers-by-salary-range-chart' %}"></canvas>
                         </div>
                         <div id="container">
-                          <canvas id="job-offers-by-salary-range-chart" data-url="{% url 'job-offers-by-salary-range-chart' %}"></canvas>
+                          <canvas id="job-categories-by-average-salary-chart" data-url="{% url 'job-categories-by-average-salary-chart' %}"></canvas>
                         </div>
                         <div id="container">
                           <canvas id="companies-with-most-offers-chart" data-url="{% url 'companies-with-most-offers-chart' %}"></canvas>
@@ -53,6 +53,20 @@
                                       text: 'Job Offers Count by Category'
                                     },
                                     indexAxis: 'y',
+                                    scales: {
+                                      yAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Job Offers Count'
+                                        }
+                                      }],
+                                      xAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Category'
+                                        }
+                                      }]
+                                    }
                                   }
                                 });
 
@@ -88,9 +102,23 @@
                                     },
                                     title: {
                                       display: true,
-                                      text: 'Job Offers by Salary Range (Neto)'
+                                      text: 'Job Offers by Salary Range'
                                     },
                                     indexAxis: 'y',
+                                    scales: {
+                                      yAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Job Offers Count'
+                                        }
+                                      }],
+                                      xAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Monthly Salary (Neto)'
+                                        }
+                                      }]
+                                    }
                                   }
                                 });
 
@@ -110,7 +138,7 @@
                                 var ctx = $categoriesByAverageSalaryChart[0].getContext("2d");
 
                                 new Chart(ctx, {
-                                  type: 'bar',
+                                  type: 'horizontalBar',
                                   data: {
                                     labels: data.labels,
                                     datasets: [{
@@ -126,47 +154,23 @@
                                     },
                                     title: {
                                       display: true,
-                                      text: 'Job Offer Categories by Average Salary (Neto)'
+                                      text: 'Job Offer Categories by Average Salary'
                                     },
                                     indexAxis: 'y',
-                                  }
-                                });
-
-                              }
-                            });
-
-                          });
-                        </script>
-                        <script>
-                          $(function () {
-
-                            var $categoriesByAverageSalaryChart = $("#job-categories-by-average-salary-chart");
-                            $.ajax({
-                              url: $categoriesByAverageSalaryChart.data("url"),
-                              success: function (data) {
-
-                                var ctx = $categoriesByAverageSalaryChart[0].getContext("2d");
-
-                                new Chart(ctx, {
-                                  type: 'bar',
-                                  data: {
-                                    labels: data.labels,
-                                    datasets: [{
-                                      label: 'Average Salary',
-                                      backgroundColor: data.colors,
-                                      data: data.data
-                                    }]
-                                  },
-                                  options: {
-                                    responsive: true,
-                                    legend: {
-                                      display: false,
-                                    },
-                                    title: {
-                                      display: true,
-                                      text: 'Job Offer Categories by Average Salary (Neto)'
-                                    },
-                                    indexAxis: 'y',
+                                    scales: {
+                                      yAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Category'
+                                        }
+                                      }],
+                                      xAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Average Monthly Salary (Neto)'
+                                        }
+                                      }]
+                                    }
                                   }
                                 });
 
@@ -205,6 +209,20 @@
                                       text: 'TOP 10 Companies with most Job Offers'
                                     },
                                     indexAxis: 'y',
+                                    scales: {
+                                      yAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Job Offers Count'
+                                        }
+                                      }],
+                                      xAxes: [{
+                                        scaleLabel: {
+                                          display: true,
+                                          labelString: 'Company Name'
+                                        }
+                                      }]
+                                    }
                                   }
                                 });
 
